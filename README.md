@@ -45,9 +45,11 @@ Il y a 2 types de composants :
 - composant fonctionnel 
 - composant à état
 
-<EXPLICATION sur les composants à terminer>
+**EXPLICATION sur les composants à COMPLÉTER**
 
 Il faut privilégier l'utilisation des composants fonctionnels.
+
+## Installation d'un paquet Meteor
 
 Pour avoir le logo de l'epfl présent dans le header, nous devons installer le paquet meteor suivant :
 
@@ -55,9 +57,18 @@ Pour avoir le logo de l'epfl présent dans le header, nous devons installer le p
 
 Ce paquet nous permettra d'importer le fichier svg.
 
+### Importer un paquet: Methode 1
+
 Pour importer le paquet, vous pouvez modifier le fichier .meteor/packages et copier coller 
 ```nathantreid:static-assets```
 à la fin du fichier
+
+### Importer un paquet: Methode 2
+
+Vous pouvez également arrêter le serveur meteor. 
+Puis lance la commande :
+
+```Meteor add nathantreid:static-assets```
 
 Vous pouvez trouver ce paquet sur le registry de tous les paquets meteor à savoir [atmospherejs](https://atmospherejs.com/)
 
@@ -66,9 +77,59 @@ A cette étape, nous avons également besoin d'installer un package pour bootstr
 
 ## Introduction jsx :
 
-<EXPLICATION sur jsx>
+**EXPLICATION sur jsx à COMPLÉTER**
 
 Noter que les attributs HTML sont différents en jsx.
 
 Par exemple: `class` devient `className`
+
+# Étape n°3: Le routing
+
+## Installation du paquet
+
+Il existe plusieurs moyens de faire le routing en meteor et aussi en react.
+Le choix ici est d'utiliser la librairie la plus utilisée ```React-router```.
+
+Il s'agit d'un paquet npm.
+
+Donc pour l'installer :
+
+```meteor npm install react-router-dom```
+
+## Définition des routes dans App.jsx
+
+A noter :
+* le `exact` dans `<Route exact path="/"`
+* que le composant `AddPost` gère l'ajout et l'édition d'un post.
+* dans le composant `AddPost`: `this.props.match.path` permettant d'obtenir l'url courante
+* dans le footer et le header: expliquer les différences entre :
+- <a href="">pour les liens externes à l'application</a>
+- `Link`: permet de définir un lien utilisant le `Router`
+- `NavLink`: est une version spéciale de `Link` permet de donner des classes lorsque le lien est actif 
+  => voir `activeClassName` et `exact` dans le `Header`
+
+## Introduction à l'état d'un composant
+
+* dans le composant `AddPost`: Faire une introduction au state
+
+
+
+# Étape n°4: Articles & Commentaires
+
+## React avec Meteor
+
+## Guide de survie avec MongoDB
+
+# Étape n°5: Les meteors methods
+
+# Étape n°6: Publications et subscriptions
+
+# Étape n°7: Gestion des formulaires avec Formik
+
+# Étape n°xxx: Gestion des users, des rôles
+
+## Tequila
+
+## Groups
+
 
