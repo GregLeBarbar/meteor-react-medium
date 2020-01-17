@@ -7,7 +7,7 @@ export default Header = () => {
 
   content =  (
     <header className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-      <a className="navbar-brand" to="/"><img src={ logo } className="App-logo" alt="logo"/></a>
+      <a className="navbar-brand"><img src={ logo } className="App-logo" alt="logo"/></a>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav mr-auto"> 
           <li className="nav-item dropdown">
