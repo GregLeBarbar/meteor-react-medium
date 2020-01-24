@@ -227,9 +227,11 @@ Il permet de :
 
 ## Fonction de callback en 3ème paramètre
 
-## Contrôler les données avec simple-schema
+## Valider les données avec simple-schema
 
-## Remonter une erreur 
+## Remonter les erreurs de validation au client
+
+** A terminer afficher les erreurs dans le form **
 
 Par exemple un champ obligatoire
 
