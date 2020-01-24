@@ -37,7 +37,7 @@ Notion Théorique :
 
 # Étape n°2 : Création des composants footer, header et homepage
 
-A REFAIRE : le composant Homepage au lieu de Posts
+A REFAIRE : le composant Homepage au lieu de Postsalors
 
 Pour commencer, tout le code de l'application exemple a été supprimée.
 
