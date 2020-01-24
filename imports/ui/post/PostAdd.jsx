@@ -19,7 +19,6 @@ export default class PostAdd extends Component {
     Meteor.call("insertPost", newPost, (error, result) => {
       if (error) {
         console.log(error);
-        //throw new Meteor.Error('error', error);
       } else {
         // Clear form
         ReactDOM.findDOMNode(this.refs.titleInput).value = '';
