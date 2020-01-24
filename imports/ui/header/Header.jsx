@@ -16,7 +16,7 @@ export default Header = () => {
               Articles
             </a>
             <div className="dropdown-menu" >
-              <NavLink className="dropdown-item" exact to="/" activeClassName="active">Voir la liste des articles</NavLink>
+              <NavLink className="dropdown-item" to="/posts/" activeClassName="active">Gérer les articles</NavLink>
               <NavLink className="dropdown-item" to="/add-post" activeClassName="active">Ajouter un nouvel article</NavLink>
             </div>
           </li>
