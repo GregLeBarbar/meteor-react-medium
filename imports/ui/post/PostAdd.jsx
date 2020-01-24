@@ -26,21 +26,11 @@ export default class PostAdd extends Component {
     ReactDOM.findDOMNode(this.refs.contentTextarea).value = '';
   }
 
-  getPageTitle = () => {
-    let title;
-    /*if (this.state.action === 'edit') {
-      title = "Éditer l'article";
-    } else {*/
-      title = "Ajouter un nouvel article";
-    //}
-    return title;
-  }
-
   render() {
     
     return (
       <div className="container">
-        <h4 className="py-4">{ this.getPageTitle() }</h4>
+        <h4 className="py-4">Ajouter un nouvel article</h4>
         <form className="new-task" onSubmit={ this.handleSubmit } >
           <div className="form-group">
             <label htmlFor="title">Titre</label>
