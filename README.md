@@ -219,6 +219,22 @@ Il permet de :
 
 # Étape n°5: Les meteors methods
 
+## Suppression de paquet meteor insecure
+
+## Déplacer le code d'ajout et de suppression d'un post dans les meteor methods
+
+## Appeler les meteor methods
+
+## Fonction de callback en 3ème paramètre
+
+## Contrôler les données avec simple-schema
+
+## Remonter une erreur 
+
+Par exemple un champ obligatoire
+
+`meteor npm install simpl-schema`
+
 # Étape n°6: Publications et subscriptions
 
 # Étape n°7: Gestion des formulaires avec Formik

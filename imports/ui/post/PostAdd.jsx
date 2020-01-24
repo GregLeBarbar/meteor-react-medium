@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Posts } from '../../api/collections';
-import slugify from 'slugify';
 
 export default class PostAdd extends Component {
 
@@ -12,18 +10,22 @@ export default class PostAdd extends Component {
     const title = ReactDOM.findDOMNode(this.refs.titleInput).value.trim();
     const content = ReactDOM.findDOMNode(this.refs.contentTextarea).value.trim();
     
-    // Insert a new Post
-    // TODO: gestion d'un slug unique
-    Posts.insert({
+    const newPost = {
       title,
-      content,
-      slug: slugify(title),
-      createdAt: new Date(), // current time
+      content
+    }
+
+    // Call meteor method to insert new Post
+    Meteor.call("insertPost", newPost, (error, result) => {
+      if (error) {
+        console.log(error);
+        //throw new Meteor.Error('error', error);
+      } else {
+        // Clear form
+        ReactDOM.findDOMNode(this.refs.titleInput).value = '';
+        ReactDOM.findDOMNode(this.refs.contentTextarea).value = '';
+      }   
     });
- 
-    // Clear form
-    ReactDOM.findDOMNode(this.refs.titleInput).value = '';
-    ReactDOM.findDOMNode(this.refs.contentTextarea).value = '';
   }
 
   render() {
