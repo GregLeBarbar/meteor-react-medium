@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Posts } from '../../api/collections';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 
 class PostElement extends Component {
 
@@ -35,7 +34,7 @@ class PostElement extends Component {
 class PostList extends Component {
 
   deletePost = (postId) => {
-    Posts.remove({ _id: postId });
+    Meteor.call("removePost", postId);
   }
 
   render() {

@@ -219,6 +219,30 @@ Il permet de :
 
 # Étape n°5: Les meteors methods
 
+## Suppression de paquet meteor insecure
+
+## Déplacer le code d'ajout et de suppression d'un post dans les meteor methods
+
+## Appeler les meteor methods
+
+## Fonction de callback en 3ème paramètre
+
+Voir l'appel de la meteor methods dans le fichier /imports/ui/post/PostAdd.jsx
+
+## Valider les données avec simple-schema
+
+Installation du paquet 
+
+`meteor npm install simpl-schema`
+
+## Remonter les erreurs de validation au client
+
+## Afficher les erreurs dans le formulaire
+
+## Afficher les erreurs en Français
+
+Pour cela on ajoute le fichier ValidationMessage.js et on l'utilise dans collections.js
+
 # Étape n°6: Publications et subscriptions
 
 # Étape n°7: Gestion des formulaires avec Formik
