@@ -227,15 +227,21 @@ Il permet de :
 
 ## Fonction de callback en 3ème paramètre
 
+Voir l'appel de la meteor methods dans le fichier /imports/ui/post/PostAdd.jsx
+
 ## Valider les données avec simple-schema
+
+Installation du paquet 
+
+`meteor npm install simpl-schema`
 
 ## Remonter les erreurs de validation au client
 
-** A terminer afficher les erreurs dans le form **
+## Afficher les erreurs dans le formulaire
 
-Par exemple un champ obligatoire
+## Afficher les erreurs en Français
 
-`meteor npm install simpl-schema`
+Pour cela on ajoute le fichier ValidationMessage.js et on l'utilise dans collections.js
 
 # Étape n°6: Publications et subscriptions
 

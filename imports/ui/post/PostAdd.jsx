@@ -3,6 +3,17 @@ import ReactDOM from 'react-dom';
 
 export default class PostAdd extends Component {
 
+  displayError(refInput, refError, elementById, msg) {
+
+    // Add class input field
+    ReactDOM.findDOMNode(refInput).className = 'is-invalid form-control';
+    
+    // Add msg error
+    let errorContent = React.createElement("span", {}, msg);
+    ReactDOM.render(errorContent, document.getElementById(elementById));
+    ReactDOM.findDOMNode(refError).className = 'text-danger my-2';
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
  
@@ -16,9 +27,28 @@ export default class PostAdd extends Component {
     }
 
     // Call meteor method to insert new Post
-    Meteor.call("insertPost", newPost, (error, result) => {
-      if (error) {
-        console.log(error);
+    Meteor.call("insertPost", newPost, (errors, result) => {
+      if (errors) {
+        console.log(errors);
+        errors.details.forEach(
+          error => {
+            if (error.name == "title") {
+              this.displayError(
+                this.refs.titleInput, 
+                this.refs.errorTitle, 
+                'errorTitle',
+                error.message
+              );
+            } else if (error.name == "content") {
+              this.displayError(
+                this.refs.contentTextarea, 
+                this.refs.errorContent,
+                'errorContent',
+                error.message
+              );
+            }
+          }
+        )
       } else {
         // Clear form
         ReactDOM.findDOMNode(this.refs.titleInput).value = '';
@@ -42,6 +72,7 @@ export default class PostAdd extends Component {
               ref="titleInput"
               placeholder="Titre de l'article"
             />
+            <div id="errorTitle" ref="errorTitle"></div>
           </div>
           <div className="form-group">
             <label htmlFor="content">Contenu</label>
@@ -51,6 +82,7 @@ export default class PostAdd extends Component {
               ref="contentTextarea"
               placeholder="Contenu de l'article"
             />
+            <div id="errorContent" ref="errorContent"></div>
             <input className="mt-4  btn btn-primary" type="submit" value="Envoyer" />
           </div>
         </form>
