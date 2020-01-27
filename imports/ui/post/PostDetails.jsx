@@ -3,24 +3,21 @@ import { withTracker } from 'meteor/react-meteor-data';
 import moment from 'moment';
 
 class PostDetails extends Component {
-
   render() {
     let content;    
-    if (this.props.posts.length == 0) {
+    if (this.props.loading) {
       content = "Loading";
     } else {
-      const slug = this.props.match.url.split("/get-post/")[1];
-      const post = this.props.posts.find(post => post.slug === slug);
       content = (
         <div className="card mb-2 my-2">
           <div className="card-body">
             <div className="text-center">
-              <h4 className="card-title">{post.title}</h4>
+              <h4 className="card-title">{ this.props.post.title }</h4>
               <h6 className="card-subtitle text-muted mb-2">
-                Publié le { moment(post.createdAt).format('DD-MM-YYYY') }
+                Publié le { moment(this.props.post.createdAt).format('DD-MM-YYYY') }
               </h6>
               <p className="card-text text-left" style={ { "whiteSpace": "pre-line"}}>
-              { post.content }
+              { this.props.post.content }
               </p>
             </div>
           </div>
@@ -30,9 +27,13 @@ class PostDetails extends Component {
     return content;
   }
 }
-export default withTracker(() => {
-  let posts = Posts.find({}).fetch();
+export default withTracker((props) => {
+  const slug = props.match.url.split("/get-post/")[1];
+  Meteor.subscribe('post', slug);
+  let posts = Posts.find({slug: slug}).fetch();
+  let loading = posts.length == 0;
   return {
-    posts: posts,
+    loading: loading,
+    post: posts[0],
   }
 })(PostDetails);
