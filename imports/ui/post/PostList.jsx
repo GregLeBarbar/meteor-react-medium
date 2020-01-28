@@ -71,6 +71,7 @@ class PostList extends Component {
   }
 }
 export default withTracker(() => {
+  Meteor.subscribe('posts');
   let posts = Posts.find({}).fetch();
   return {
     posts: posts,

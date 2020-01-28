@@ -39,6 +39,7 @@ class Homepage extends Component {
   }
 }
 export default withTracker(() => {
+  Meteor.subscribe('posts');
   let posts = Posts.find({}, { sort: {createdAt: -1} }).fetch();
   return {
     posts: posts,

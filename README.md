@@ -245,6 +245,46 @@ Pour cela on ajoute le fichier ValidationMessage.js et on l'utilise dans collect
 
 # Étape n°6: Publications et subscriptions
 
+## Suppression du paquet Meteor autopublish
+
+## Publications
+
+Création du fichier `publications.js`
+
+A noter `if (Meteor.isServer) {`
+
+```
+import { Posts } from '../api/collections';
+if (Meteor.isServer) {
+  // This code only runs on the server
+  Meteor.publish('posts', function () {
+    return Posts.find();
+  });
+}
+```
+
+Comment faire en sorte de ne charger que les données d'un article 
+lors de l'affichage en détail d'un article ?
+
+```
+export default withTracker((props) => {
+  Meteor.subscribe('post', props.match.params.slug);
+  let posts = Posts.find({slug: props.match.params.slug}).fetch();
+  let loading = posts.length == 0;
+  return {
+    loading: loading,
+    post: posts[0],
+  }
+})(PostDetails);
+```
+
+## RESTE A FAIRE 
+
+Pour rendre cette étape plus intéressante :
+- mettre plus de check dans publications.js ?
+- rendre les articles privés ?
+- etc 
+
 # Étape n°7: Gestion des formulaires avec Formik
 
 Gestion de l'Edition
