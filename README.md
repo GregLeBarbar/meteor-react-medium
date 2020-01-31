@@ -31,13 +31,35 @@ D'ailleurs on peut jeter un coup d'oeil aux librairies installées :
   * react : 
 * Dans le fichier .meteor/packages, vous trouverez tous les paquets meteor.
 
-Notion Théorique : 
-* Introduction à React
-* DOM Virtuel à creuser
+## Introduction à React : 
+
+React est une librairie JavaScript open-source permettant de créer des interfaces utilisateurs pour des applications single-page.
+
+React a été créé par Jordan Walke, un ingénieur de Facebook en 2011.
+
+### Performance
+
+React utilise un DOM virtuel pour obtenir des performances très supérieures à du JavaScript natif. En effet, au lieu de modifier directement le DOM (arbre des éléments HTML), ce qui est coûteux em performance, React va calculer à l'aide du DOM virtuel tous les changements optimaux à effectuer sur le DOM avant de les effectuer.
+
+### Utilisation du JSX 
+
+Avec React, au lieu d'utiliser du HTML, on utilise du JSX.
+(Ce n'est pas obligatoire mais fortement recommandé)
+Le JSX permet d'écrire du code HTML dans du code JavaScript.
+Ce code sera ensuite transpilé en JavaScript.
+
+### Philosophie de React
+
+React a pour philosophie de ne pas séparer la structure HTML, le style CSS et la logique, mais de séparer l'application en **composants** qui sont complets et construits autour d'une fonctionnalité.
+
+Cette approche permet de créer des applications qui soient plus facilement maintenables car elles sont mieux structurées.
+
+Elle permet également une réutilisation des composants dans plusieurs endroits de votre application.
+
 
 # Étape n°2 : Création des composants footer, header et homepage
 
-A REFAIRE : le composant Homepage au lieu de Postsalors
+A REFAIRE : le composant Homepage au lieu de Posts
 
 Pour commencer, tout le code de l'application exemple a été supprimée.
 
@@ -45,14 +67,19 @@ Pour commencer, tout le code de l'application exemple a été supprimée.
 
 Ensuite nous allons mettre en place quelques composants de base de notre application.
 
-SCHEMA DE L'APPLICATION : Montrant la page découpé en HEADER, CORPS DE PAGE, FOOTER
+SCHEMA DE L'APPLICATION : Montrant la page découpée en HEADER, CORPS DE PAGE, FOOTER
 
 Ceci nous permet de voir le concept de composant en React. 
-Il y a 2 types de composants : 
-- composant fonctionnel 
-- composant à état
 
-**EXPLICATION sur les composants à COMPLÉTER**
+## Composant
+
+Un composant est une brique réutilisable et isolée.
+
+Il y a 2 types de composants : 
+- composant fonctionnel (fonction JavaScript)
+- composant à état (classe JavaScript)
+
+Il peut optionnellement recevoir en paramètre des propriétés (concept de `props`) et retourne un élément React.
 
 Il faut privilégier l'utilisation des composants fonctionnels.
 
@@ -73,7 +100,7 @@ Pour importer le paquet, vous pouvez modifier le fichier .meteor/packages et cop
 ### Importer un paquet: Methode 2
 
 Vous pouvez également arrêter le serveur meteor. 
-Puis lance la commande :
+Puis lancer la commande :
 
 ```Meteor add nathantreid:static-assets```
 
@@ -83,8 +110,6 @@ A cette étape, nous avons également besoin d'installer un package pour bootstr
 ```alexwine:bootstrap-4```
 
 ## Introduction jsx :
-
-**EXPLICATION sur jsx à COMPLÉTER**
 
 Noter que les attributs HTML sont différents en jsx.
 
@@ -201,7 +226,38 @@ Pour supprimer tous les documents d'une collection :
 ## Implémentation de la liste des posts
 
 * Explication de la notion `props`
+
+L'utilisation des `props` permet de rendre les composants dynamiques en pouvant leur passer des données, généralement d'un composant parent vers un composant enfant.
+
+Un props est un objet passé à un composant lors de son utilisation.
+
+Les props sont immutables, il ne faut pas que les composants recevant la props la modifie.
+
 * Communication entre le composant parent et le composant enfant
+
+Le flux de données est unidirectionnel c'est à dire qu'il va toujours dans le sens composant parent vers le composant enfant.
+
+Un composant parent est un composant qui contient un ou plusieurs composants appelé(s) enfant(s).
+
+* Communication entre le composant enfant et le composant parent
+
+Il suffit de passer une méthode du composant à état parent au composant enfant.
+Ce dernier peut ensuite utiliser cette méthode car sa référence se trouve sur this.props.methodeParente.
+
+Voir la suppression d'un post
+
+## Rappel sur this
+
+En utilisant une fonction standard JavaScript, le valeur du `this` dépend de son contexte d'exécution.
+Dans un navigateur, `this` correspond a l'objet `window` (qui est l'objet global dans ce contexte d'exécution).
+Ceci peut donc poser problème lorsque l'on utilise le this dans un composant à état.
+
+Pour résoude le problème :
+- une fonction fléchée
+- utiliser bind pour fixer la valeur du this 
+
+
+## Afficher la date à l'aide de la librairie `moment`
 
 Pour afficher la date au bon format, on utilise la librairie node `moment`
 
@@ -216,6 +272,16 @@ Il permet de :
 * rendre les variables `reactives`
 
 **A Compléter avec la doc https://guide.meteor.com/react.html **
+
+## Utilisation de style 
+
+L'attribut `style` permet d'utiliser un objet JavaScript contenant des propriétés en `camelCase`
+
+Voir exemple dans PostDetails.jsx
+
+style={ { "whiteSpace": "pre-line"} }
+
+
 
 # Étape n°5: Les meteors methods
 
@@ -287,6 +353,15 @@ Pour rendre cette étape plus intéressante :
 
 # Étape n°7: Gestion des formulaires avec Formik
 
+## Explication du state
+
+Le state d'un composant à état est un objet JavaScript qui va contenir les données dynamiques du composant et déterminer son comportement.
+
+Le state peut être modifié (contrairement à props) mais uniquement par le composant sur lequel il est défini. State est donc privé.
+
+Pour modifier le state, nous devons utiliser la méthode setState.
+Cette méthode permet de dire à React d'effectuer une mise à jour de l'affichage en utilisant les nouvelles valeurs du state.
+
 Gestion de l'Edition
 
 Dans le composant PostElement on ajoute un bouton pour editer
@@ -305,5 +380,12 @@ Dans le composant PostElement on ajoute un bouton pour editer
 ## Groups
 
 ## Gérer une migration pour ajouter le ownerId à un post
+
+
+# Liste des paquets npm ou meteor utilisé 
+
+## react-dom
+Cette librairie permet d'accéder au DOM.
+
 
 

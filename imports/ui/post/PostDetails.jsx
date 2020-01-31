@@ -16,7 +16,7 @@ class PostDetails extends Component {
               <h6 className="card-subtitle text-muted mb-2">
                 Publié le { moment(this.props.post.createdAt).format('DD-MM-YYYY') }
               </h6>
-              <p className="card-text text-left" style={ { "whiteSpace": "pre-line"}}>
+              <p className="card-text text-left" style={ { "whiteSpace": "pre-line"} }>
               { this.props.post.content }
               </p>
             </div>
