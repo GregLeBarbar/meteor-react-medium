@@ -5,14 +5,6 @@ import { CustomInput, CustomTextarea, CustomError } from './CustomFields';
 
 class PostAdd extends Component {
 
-  constructor(props){
-    super(props);
-    
-    this.state = {
-      isEdit: this.props.isEdit,
-    }
-  }
-
   getPost() {
     let initialValues;
     if (this.props.isEdit) {
@@ -26,7 +18,7 @@ class PostAdd extends Component {
   handleSubmit = (values, actions) => {
     
     let methodName = 'insertPost';
-    if (this.state.isEdit) {
+    if (this.props.isEdit) {
       methodName = 'updatePost';
     }
 
@@ -41,7 +33,7 @@ class PostAdd extends Component {
         actions.setErrors(formErrors);
         actions.setSubmitting(false);
       } else {
-        if (this.state.isEdit) {
+        if (this.props.isEdit) {
           actions.setSubmitting(false);
         } else {
           actions.resetForm();
