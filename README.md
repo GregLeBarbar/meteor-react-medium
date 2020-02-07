@@ -373,6 +373,19 @@ Formik fait essentiellement 3 choses. Il permet de gérer :
 - la validation et les erreurs très facilement
 - soumission du formulaire
 
+### setErrors
+
+Les erreurs de validation retournées par la meteor method doivent être passées au formulaire.
+c'est actions.setErrors() qui fait le job.
+
+### setSubmitting
+
+On doit pouvoir soumettre le formulaire une nouvelle fois dès que la soumission précédente à été gérée. 
+
+### resetForm
+
+Lors de l'ajout d'un nouveau post, on veut reinitialiser les champs (de manière arbitraire) pour permettre à l'utilisateur de saisir un nouveau post.
+
 # Étape n°xxx: Gestion des users, des rôles
 
 ## Tequila

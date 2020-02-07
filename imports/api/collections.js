@@ -15,6 +15,7 @@ const postUpsertSchema = new SimpleSchema({
     optional: true,
   },
   title: {
+    label: "Titre",
     type: String,
     max: 30,
     custom: isRequired,
@@ -25,8 +26,9 @@ const postUpsertSchema = new SimpleSchema({
     custom: isRequired,
   },
   content: {
+    label: "Contenu",
     type: String,
-    max: 1500,
+    max: 5000,
     custom: isRequired,
   },
   createdAt: {

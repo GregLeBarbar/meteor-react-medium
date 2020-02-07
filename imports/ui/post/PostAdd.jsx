@@ -15,37 +15,26 @@ class PostAdd extends Component {
     return initialValues;
   }
 
-  handleSubmit = (values) => {
+  handleSubmit = (values, actions) => {
 
-    console.log(values);
+    console.log(actions);
 
     // Call meteor method to insert new Post
     Meteor.call("insertPost", values, (errors, result) => {
       if (errors) {
         console.log(errors);
-        /*
-        errors.details.forEach(
-          error => {
-            if (error.name == "title") {
-              this.displayError(
-                this.refs.titleInput, 
-                this.refs.errorTitle, 
-                'errorTitle',
-                error.message
-              );
-            } else if (error.name == "content") {
-              this.displayError(
-                this.refs.contentTextarea, 
-                this.refs.errorContent,
-                'errorContent',
-                error.message
-              );
-            }
-          }
-        )
-        */
+        let formErrors = {};
+        errors.details.forEach(function(error) {
+          formErrors[error.name] = error.message;                        
+        });
+        actions.setErrors(formErrors);
+        actions.setSubmitting(false);
       } else {
-        
+        if (this.props.isEdit) {
+          actions.setSubmitting(false);
+        } else {
+          actions.resetForm();
+        }
       }   
     });
   }
@@ -67,7 +56,8 @@ class PostAdd extends Component {
               handleChange,
               handleBlur,
               values,
-              isSubmitting
+              isSubmitting,
+              errors,
             } ) => (
               <form className="new-task" onSubmit={ handleSubmit }>
                 <div className="form-group">
@@ -82,7 +72,11 @@ class PostAdd extends Component {
                     type="text"
                     placeholder="Titre de l'article"
                   />
+                  { errors.title ? (
+                    <div className="text-danger">{ errors.title }</div>
+                  ) : null }
                 </div>
+
                 <div className="form-group">
                   <label htmlFor="content">Contenu</label>
                   <textarea 
@@ -95,6 +89,9 @@ class PostAdd extends Component {
                     placeholder="Contenu de l'article"
                     style={ { height: 400 }  }
                   />
+                  { errors.content ? (
+                    <div className="text-danger">{ errors.content }</div>
+                  ) : null }
                   <input className="mt-4  btn btn-primary" type="submit" value="Envoyer" disabled={ isSubmitting } />
                 </div>
               </form>
