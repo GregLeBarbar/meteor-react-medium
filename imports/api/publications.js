@@ -6,8 +6,12 @@ if (Meteor.isServer) {
   Meteor.publish('posts', function () {
     return Posts.find();
   });
-  Meteor.publish('post', function (slug) {
+  Meteor.publish('postBySlug', function (slug) {
     check(slug, String);
     return Posts.find({ slug: slug });
+  });
+  Meteor.publish('postById', function (postId) {
+    check(postId, String);
+    return Posts.find({ _id: postId });
   });
 }

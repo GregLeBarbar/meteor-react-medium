@@ -28,7 +28,7 @@ class PostDetails extends Component {
   }
 }
 export default withTracker((props) => {
-  Meteor.subscribe('post', props.match.params.slug);
+  Meteor.subscribe('postBySlug', props.match.params.slug);
   let posts = Posts.find({slug: props.match.params.slug}).fetch();
   let loading = posts.length == 0;
   return {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Posts } from '../../api/collections';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 class PostElement extends Component {
@@ -14,6 +15,12 @@ class PostElement extends Component {
         <td>{ this.props.post.slug }</td>
         <td>{ moment(this.props.post.createdAt).format('DD-MM-YYYY hh:mm:ss') }</td>
         <td>
+          <Link className="navbar-brand" to={`/edit-post/${ this.props.post._id }`}>
+            <button 
+              type="button" 
+              className="btn btn-outline-primary" 
+            >Modifier</button>
+          </Link>
           <button 
             type="button" 
             className="btn btn-outline-primary" 

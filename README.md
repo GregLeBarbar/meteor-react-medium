@@ -366,12 +366,25 @@ Gestion de l'Edition
 
 Dans le composant PostElement on ajoute un bouton pour editer
 
-<Link className="navbar-brand" to={`/edit-post/${ this.props.post._id }`}>
-  <button 
-    type="button" 
-    className="btn btn-outline-primary" 
-  >Modifier</button>
-</Link>
+## Formik
+
+Formik fait essentiellement 3 choses. Il permet de gérer :
+- l'état des données dans les différents champs du formulaire
+- la validation et les erreurs très facilement
+- soumission du formulaire
+
+### setErrors
+
+Les erreurs de validation retournées par la meteor method doivent être passées au formulaire.
+c'est actions.setErrors() qui fait le job.
+
+### setSubmitting
+
+On doit pouvoir soumettre le formulaire une nouvelle fois dès que la soumission précédente à été gérée. 
+
+### resetForm
+
+Lors de l'ajout d'un nouveau post, on veut reinitialiser les champs (de manière arbitraire) pour permettre à l'utilisateur de saisir un nouveau post.
 
 # Étape n°xxx: Gestion des users, des rôles
 

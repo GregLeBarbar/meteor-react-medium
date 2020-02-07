@@ -1,92 +1,120 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Formik } from 'formik';
 
-export default class PostAdd extends Component {
+class PostAdd extends Component {
 
-  displayError(refInput, refError, elementById, msg) {
-
-    // Add class input field
-    ReactDOM.findDOMNode(refInput).className = 'is-invalid form-control';
-    
-    // Add msg error
-    let errorContent = React.createElement("span", {}, msg);
-    ReactDOM.render(errorContent, document.getElementById(elementById));
-    ReactDOM.findDOMNode(refError).className = 'text-danger my-2';
+  getPost() {
+    let initialValues;
+    if (this.props.isEdit) {
+      initialValues = this.props.post;
+    } else {
+      initialValues = { title: '', content: '' };
+    };
+    return initialValues;
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
- 
-    // Find the fields via the React ref
-    const title = ReactDOM.findDOMNode(this.refs.titleInput).value.trim();
-    const content = ReactDOM.findDOMNode(this.refs.contentTextarea).value.trim();
-    
-    const newPost = {
-      title,
-      content
-    }
+  handleSubmit = (values, actions) => {
+
+    console.log(actions);
 
     // Call meteor method to insert new Post
-    Meteor.call("insertPost", newPost, (errors, result) => {
+    Meteor.call("insertPost", values, (errors, result) => {
       if (errors) {
         console.log(errors);
-        errors.details.forEach(
-          error => {
-            if (error.name == "title") {
-              this.displayError(
-                this.refs.titleInput, 
-                this.refs.errorTitle, 
-                'errorTitle',
-                error.message
-              );
-            } else if (error.name == "content") {
-              this.displayError(
-                this.refs.contentTextarea, 
-                this.refs.errorContent,
-                'errorContent',
-                error.message
-              );
-            }
-          }
-        )
+        let formErrors = {};
+        errors.details.forEach(function(error) {
+          formErrors[error.name] = error.message;                        
+        });
+        actions.setErrors(formErrors);
+        actions.setSubmitting(false);
       } else {
-        // Clear form
-        ReactDOM.findDOMNode(this.refs.titleInput).value = '';
-        ReactDOM.findDOMNode(this.refs.contentTextarea).value = '';
+        if (this.props.isEdit) {
+          actions.setSubmitting(false);
+        } else {
+          actions.resetForm();
+        }
       }   
     });
   }
 
   render() {
-    
-    return (
-      <div className="container">
-        <h4 className="py-4">Ajouter un nouvel article</h4>
-        <form className="new-task" onSubmit={ this.handleSubmit } >
-          <div className="form-group">
-            <label htmlFor="title">Titre</label>
-            <input
-              id="title"
-              className="form-control"
-              type="text"
-              ref="titleInput"
-              placeholder="Titre de l'article"
-            />
-            <div id="errorTitle" ref="errorTitle"></div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="content">Contenu</label>
-            <textarea 
-              id="content"
-              className="form-control"
-              ref="contentTextarea"
-              placeholder="Contenu de l'article"
-            />
-            <div id="errorContent" ref="errorContent"></div>
-            <input className="mt-4  btn btn-primary" type="submit" value="Envoyer" />
-          </div>
-        </form>
-      </div>
-    )
+    let content;
+    if (this.props.loading) {
+      content = <h1>Loading...</h1>
+    } else {
+      content = (
+        <div className="container">
+          <h4 className="py-4">Ajouter un nouvel article</h4>
+          <Formik
+            onSubmit={ this.handleSubmit }
+            initialValues={ this.getPost() }
+          >
+            { ( {
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              values,
+              isSubmitting,
+              errors,
+            } ) => (
+              <form className="new-task" onSubmit={ handleSubmit }>
+                <div className="form-group">
+                  <label htmlFor="title">Titre</label>
+                  <input
+                    onChange={ handleChange }
+                    onBlur={ handleBlur }
+                    value={ values.title }
+                    name="title"
+                    id="title"
+                    className="form-control"
+                    type="text"
+                    placeholder="Titre de l'article"
+                  />
+                  { errors.title ? (
+                    <div className="text-danger">{ errors.title }</div>
+                  ) : null }
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="content">Contenu</label>
+                  <textarea 
+                    onChange={ handleChange }
+                    onBlur={ handleBlur }
+                    value={ values.content }
+                    name="content"
+                    id="content"
+                    className="form-control"
+                    placeholder="Contenu de l'article"
+                    style={ { height: 400 }  }
+                  />
+                  { errors.content ? (
+                    <div className="text-danger">{ errors.content }</div>
+                  ) : null }
+                  <input className="mt-4  btn btn-primary" type="submit" value="Envoyer" disabled={ isSubmitting } />
+                </div>
+              </form>
+            ) }
+          </Formik>
+        </div>
+      )
+    }
+    return content;
   }
 }
+export default withTracker((props) => {
+  if (props.match.path === "/edit-post/:_id") {
+    Meteor.subscribe('postById', props.match.params._id);
+    let posts = Posts.find({_id: props.match.params._id}).fetch(); 
+    return {
+      loading: posts.length == 0,
+      post: posts[0],
+      isEdit: true,
+    }
+  } else {
+    return {
+      loading: false,
+    }
+  }
+})(PostAdd);
