@@ -18,5 +18,13 @@ Meteor.methods({
   
   removePost(postId) {
     Posts.remove({ _id: postId });
+  }, 
+
+  updatePost(post) {
+    post["slug"] = slugify(post.title)
+    Posts.update(
+      { _id: post._id }, 
+      { $set: post }
+    );
   }
 })

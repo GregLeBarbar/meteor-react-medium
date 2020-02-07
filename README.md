@@ -386,6 +386,10 @@ On doit pouvoir soumettre le formulaire une nouvelle fois dès que la soumission
 
 Lors de l'ajout d'un nouveau post, on veut reinitialiser les champs (de manière arbitraire) pour permettre à l'utilisateur de saisir un nouveau post.
 
+# Étape n°8: Formik et Field
+
+## Comment créer des composants pour nos champs de formulaire ?
+
 # Étape n°xxx: Gestion des users, des rôles
 
 ## Tequila
