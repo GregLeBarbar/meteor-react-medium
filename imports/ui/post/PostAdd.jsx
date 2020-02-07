@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Formik } from 'formik';
+import { Formik, Field, ErrorMessage } from 'formik';
+import { CustomInput, CustomTextarea, CustomError } from './CustomFields';
 
 class PostAdd extends Component {
+
+  constructor(props){
+    super(props);
+    
+    this.state = {
+      isEdit: this.props.isEdit,
+    }
+  }
 
   getPost() {
     let initialValues;
@@ -16,11 +24,14 @@ class PostAdd extends Component {
   }
 
   handleSubmit = (values, actions) => {
-
-    console.log(actions);
+    
+    let methodName = 'insertPost';
+    if (this.state.isEdit) {
+      methodName = 'updatePost';
+    }
 
     // Call meteor method to insert new Post
-    Meteor.call("insertPost", values, (errors, result) => {
+    Meteor.call(methodName, values, (errors, result) => {
       if (errors) {
         console.log(errors);
         let formErrors = {};
@@ -30,7 +41,7 @@ class PostAdd extends Component {
         actions.setErrors(formErrors);
         actions.setSubmitting(false);
       } else {
-        if (this.props.isEdit) {
+        if (this.state.isEdit) {
           actions.setSubmitting(false);
         } else {
           actions.resetForm();
@@ -45,7 +56,7 @@ class PostAdd extends Component {
       content = <h1>Loading...</h1>
     } else {
       content = (
-        <div className="container">
+        <div className="container my-2">
           <h4 className="py-4">Ajouter un nouvel article</h4>
           <Formik
             onSubmit={ this.handleSubmit }
@@ -53,47 +64,28 @@ class PostAdd extends Component {
           >
             { ( {
               handleSubmit,
-              handleChange,
-              handleBlur,
-              values,
               isSubmitting,
-              errors,
             } ) => (
-              <form className="new-task" onSubmit={ handleSubmit }>
-                <div className="form-group">
-                  <label htmlFor="title">Titre</label>
-                  <input
-                    onChange={ handleChange }
-                    onBlur={ handleBlur }
-                    value={ values.title }
-                    name="title"
-                    id="title"
-                    className="form-control"
-                    type="text"
-                    placeholder="Titre de l'article"
-                  />
-                  { errors.title ? (
-                    <div className="text-danger">{ errors.title }</div>
-                  ) : null }
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="content">Contenu</label>
-                  <textarea 
-                    onChange={ handleChange }
-                    onBlur={ handleBlur }
-                    value={ values.content }
-                    name="content"
-                    id="content"
-                    className="form-control"
-                    placeholder="Contenu de l'article"
-                    style={ { height: 400 }  }
-                  />
-                  { errors.content ? (
-                    <div className="text-danger">{ errors.content }</div>
-                  ) : null }
-                  <input className="mt-4  btn btn-primary" type="submit" value="Envoyer" disabled={ isSubmitting } />
-                </div>
+              <form className="" onSubmit={ handleSubmit }>
+                <Field 
+                  label="Titre"
+                  name="title" 
+                  placeholder="Titre de l'article" 
+                  id="title"
+                  component={ CustomInput }
+                />
+                <ErrorMessage name="title" component={ CustomError } />
+                
+                <Field 
+                  label="Contenu"
+                  name="content"
+                  placeholder="Contenu de l'article"
+                  id="content"
+                  component={ CustomTextarea }
+                />
+                <ErrorMessage name="content" component={ CustomError } />
+                
+                <input className="mt-4 btn btn-primary" type="submit" value="Envoyer" disabled={ isSubmitting } />
               </form>
             ) }
           </Formik>
