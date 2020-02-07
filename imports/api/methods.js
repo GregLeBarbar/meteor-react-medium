@@ -6,17 +6,18 @@ import './error';
 Meteor.methods({
 
   insertPost(newData) {
-
+    console.log(newData);
     const newPost = {
       title: newData.title,
       content: newData.content,
       slug: slugify(newData.title),
       createdAt: new Date(),
     }
-
+    console.log(newPost);
     postUpsertSchema.validate(newPost);
-
+    console.log("Validate ok");
     Posts.insert(newPost);
+    console.log("Insert ok");
   },
 
   removePost(postId) {

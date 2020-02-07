@@ -366,12 +366,12 @@ Gestion de l'Edition
 
 Dans le composant PostElement on ajoute un bouton pour editer
 
-<Link className="navbar-brand" to={`/edit-post/${ this.props.post._id }`}>
-  <button 
-    type="button" 
-    className="btn btn-outline-primary" 
-  >Modifier</button>
-</Link>
+## Formik
+
+Formik fait essentiellement 3 choses. Il permet de gérer :
+- l'état des données dans les différents champs du formulaire
+- la validation et les erreurs très facilement
+- soumission du formulaire
 
 # Étape n°xxx: Gestion des users, des rôles
 
