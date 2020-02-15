@@ -24,3 +24,6 @@ react-meteor-data             # React higher-order component for reactively trac
 
 nathantreid:static-assets     # Import static file like logo.svg
 alexwine:bootstrap-4          # Bootstrap 4
+accounts-password
+alanning:roles
+epfl:accounts-tequila
