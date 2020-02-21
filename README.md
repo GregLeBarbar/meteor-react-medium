@@ -390,19 +390,36 @@ Lors de l'ajout d'un nouveau post, on veut reinitialiser les champs (de manière
 
 ## Comment créer des composants pour nos champs de formulaire ?
 
-# Étape n°xxx: Gestion des users, des rôles
+# Étape n°9: Gestion des users, des rôles et de l'authentification Tequila
+
+IL EST IMPORTANT DE GARDER CELA POUR LA FIN OU FACILEMENT DESACTIVER TEQUILA
+
+## Installation des différents paquets nécessaire
+
+Pour cette étape nous installons les paquets suivants :
+`meteor add accounts-password`
+`meteor npm install --save bcrypt`
+`meteor add alanning:roles`
+`meteor add epfl:accounts-tequila`
+
+En installant le paquet des rôles, on obtient la possibilité de :
+`Meteor.user()`
 
 ## Tequila
+On utilise le paquet `epfl:accounts-tequila` pour s'authentifier Tequila
 
 ## Groups
+Gestion des roles en fonction de l'appartenance ou non à un groupe de l'application groups.epfl.ch
+
+## Ajout des différents rôles
+On charge des "fixtures" pour les roles
+
+## Seul les utilisateurs admins et editors peuvent créer/modifier/supprimer des articles
 
 ## Gérer une migration pour ajouter le ownerId à un post
 
 
-# Liste des paquets npm ou meteor utilisé 
+# Glossaire des paquets npm ou meteor utilisé 
 
 ## react-dom
 Cette librairie permet d'accéder au DOM.
-
-
-
