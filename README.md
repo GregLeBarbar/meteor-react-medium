@@ -1,3 +1,13 @@
+# Katacoda:
+
+Voila mon compte sur katacoda :
+https://www.katacoda.com/greglebarbar
+
+Mes scénarios: https://github.com/GregLeBarbar/katacoda-scenarios
+
+Exemple des scénarios de domq :
+https://github.com/domq/katacoda-scenarios
+
 # Étape n°1 : Créer le projet
 
 Pour cela lancer la commande
@@ -416,10 +426,16 @@ On charge des "fixtures" pour les roles
 
 ## Seul les utilisateurs admins et editors peuvent créer/modifier/supprimer des articles
 
-## Gérer une migration pour ajouter le ownerId à un post
+### Header => afficher les menus en fonction des rôles
 
+### Contrôle du user authentifié + role dans meteor methods
 
-# Glossaire des paquets npm ou meteor utilisé 
+## Pages publiques / pages privées
 
-## react-dom
-Cette librairie permet d'accéder au DOM.
+## Login / Logout
+
+# Étape n°10: Gestion de l'i18n
+
+Doc officielle: https://github.com/vazco/meteor-universe-i18n#creating-a-react-component
+
+Tuto: https://sonicviz.com/2016/10/23/internationalizing-meteor/
