@@ -21,7 +21,7 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={ Homepage } />
             <Route path="/get-post/:slug" component={ PostDetails } />
-            { this.props.currentUserIsAdmin || this.props.currentUserIsEditor ?   
+            { this.props.currentUserIsAdmin || this.props.currentUserIsEditor ?
               (<Fragment>
               <Route path="/posts/" component={ PostList } />
               <Route path="/add-post" component={ PostAdd } />
@@ -39,15 +39,20 @@ export default withTracker(() => {
 
   let isAdmin = Roles.userIsInRole(Meteor.userId(), ['admin'], 'medium');
   let isEditor = Roles.userIsInRole(Meteor.userId(), ['editor'], 'medium');
-  let isLoading = Meteor.user() === undefined;
+  let isRole = isAdmin || isEditor;
+  let isLoading;
 
-  console.log("isLoading: ", isLoading);
-  console.log("isAdmin: ", isAdmin);
-  console.log("isEditor: ", isEditor);
+  if (isRole) {
+    isLoading = Meteor.user() === undefined;
+    currentUser = Meteor.user();
+  } else {
+    isLoading = false;
+    currentUser = '';
+  }
 
   return {
     isLoading: isLoading,
-    currentUser: Meteor.user(),
+    currentUser: currentUser,
     currentUserIsAdmin: isAdmin,
     currentUserIsEditor: isEditor,
   };  
